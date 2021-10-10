@@ -1,0 +1,65 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.5'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'war'
+    id 'checkstyle'
+}
+
+group = 'com.book-sale'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR1"
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+//    runtimeOnly 'org.postgresql:postgresql'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    implementation "org.mapstruct:mapstruct:${mapstruct_version}", "org.projectlombok:lombok:${lombok_version}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstruct_version}", "org.projectlombok:lombok:${lombok_version}"
+    implementation("io.springfox:springfox-swagger2:$swaggerVersion") {
+        exclude module: 'mapstruct'
+    }
+    implementation "io.springfox:springfox-swagger-ui:$swaggerVersion"
+
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+checkstyle {
+    toolVersion = "$checkstyleVersion"
+    configFile = file("${rootProject.projectDir}/checkstyle/checkstyle.xml")
+    ignoreFailures = true
+}
+
+tasks.withType(Checkstyle) {
+    exclude '**/org/tempuri/**'
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+}
