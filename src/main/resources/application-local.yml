@@ -1,0 +1,22 @@
+application:
+  swagger:
+    title: "Swagger Book Sale WebSite"
+    description: "The api is used for booksale.az website"
+    version: "1.0.0"
+
+server:
+  servlet:
+    context-path: "/api"
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://ec2-52-211-158-144.eu-west-1.compute.amazonaws.com/d2hh6q3j4dm2le
+    username: nuimgbyxcwipfk
+    password: "1105c289a55b5514d54312f690dba7b8783f6f1bf01768914709c0c622a7a46e"
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
