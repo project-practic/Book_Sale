@@ -1,0 +1,9 @@
+application:
+  swagger:
+    title: "Swagger Book Sale WebSite"
+    description: "The api is used for booksale.az website"
+    version: "1.0.0"
+
+server:
+  servlet:
+    context-path: "/api"
